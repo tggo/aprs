@@ -50,7 +50,7 @@ func (w *Wx) Zero() {
 
 // decToDMS takes a float latitude or longitude and converts it to
 // degrees, minutes (second as decimal), and a hemisphere string.
-func decToDMS(l float64, hems [2]string) (float64, float64, string) {
+func DecToDMS(l float64, hems [2]string) (float64, float64, string) {
 	deg, frac := math.Modf(math.Abs(l))
 	min := frac * 60.0
 
@@ -90,8 +90,8 @@ func (w Wx) String() (s string) {
 	}
 
 	// Base prefix
-	latDeg, latMin, latHem := decToDMS(w.Lat, [2]string{"N", "S"})
-	lonDeg, lonMin, lonHem := decToDMS(w.Lon, [2]string{"E", "W"})
+	latDeg, latMin, latHem := DecToDMS(w.Lat, [2]string{"N", "S"})
+	lonDeg, lonMin, lonHem := DecToDMS(w.Lon, [2]string{"E", "W"})
 	s = fmt.Sprintf("@%sz%02.0f%02.2f%s/%03.0f%02.2f%s",
 		w.Timestamp.In(time.UTC).Format("021504"),
 		latDeg, latMin, latHem,
